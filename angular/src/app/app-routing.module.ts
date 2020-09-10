@@ -9,9 +9,7 @@ import { ServicesComponent } from './services/services.component';
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'services', component: ServicesComponent},
+  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
   {path: '', component: HomeComponent, canActivate: [AuthGuard]},
   {path: '**', component: PageNoFoundComponent},
 ];
