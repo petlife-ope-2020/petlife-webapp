@@ -5,12 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  isLoggedIn = true;
+  isLoggedIn = false;
 
   constructor() {}
 
-  AutenticateUser(): boolean {
-
-    return this.isLoggedIn;
+  public autenticateUser(username: string, password:string){
+    if (username === 'Admin' && password === 'senha123'){
+      this.isLoggedIn = true;
+    }
   }
 }
