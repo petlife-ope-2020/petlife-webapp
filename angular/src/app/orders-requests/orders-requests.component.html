@@ -1,18 +1,20 @@
-<div class="row border" style="padding: 5px;" *ngFor="let order of orders">
-    <div class="col-8">
-        {{order.ClientName}}
-        <br>{{order.PetName}}
-        <br>{{order.PetSpecie}} - {{order.PetBreed}} - {{order.PetAge}} Anos
-        <br>{{order.Service}} 
-    </div>
-    <div class="col">
-        <div class="row justify-content-center" style="height: 50%; text-align: center;">
-        <br>{{order.Date}}, 28/08
-        <br>{{order.Time}}h
+<cdk-virtual-scroll-viewport itemSize="" style="height: 95%; width: 100;">
+    <div class="row border" style="padding: 2px; width:100%;" *cdkVirtualFor="let order of orders">
+        <div class="col-8">
+            {{order.ClientName}}
+            <br>{{order.PetName}}
+            <br>{{order.PetSpecie}} - {{order.PetBreed}} - {{order.PetAge}} Anos
+            <br>{{order.Service}} 
         </div>
-        <div class="row align-items-end justify-content-around" style="height: 50%;">
-        <button type="button" class="btn btn btn-success">Aceitar</button>
-        <button type="button" class="btn btn-danger">Rejeitar</button>
+        <div class="col">
+            <div class="row justify-content-center" style="height: 50%; text-align: center;">
+            <br>{{order.Date}}, 28/08
+            <br>{{order.Time}}h
+            </div>
+            <div class="row align-items-end justify-content-around" style="height: 50%;">
+            <button type="button" class="btn btn btn-success">Aceitar</button>
+            <button type="button" class="btn btn-danger">Rejeitar</button>
+            </div>
         </div>
     </div>
-</div>
+</cdk-virtual-scroll-viewport>
