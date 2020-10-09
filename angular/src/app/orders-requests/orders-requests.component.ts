@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetOrderInfoService } from 'src/app/orders-requests/get-order-info.service';
+import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
 
 @Component({
   selector: 'app-orders-requests',
@@ -10,7 +10,7 @@ export class OrdersRequestsComponent implements OnInit {
 
   orders : any;
 
-  constructor(private service : GetOrderInfoService) {
+  constructor(private service : ScheduledOrdersService) {
    }
 
   ngOnInit(): void {

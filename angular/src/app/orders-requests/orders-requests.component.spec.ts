@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrdersRequestsComponent } from './orders-requests.component';
-import { GetOrderInfoService } from './get-order-info.service';
+import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
 
 describe('OrdersRequestsComponent', () => {
   let component: OrdersRequestsComponent;
   let fixture: ComponentFixture<OrdersRequestsComponent>;
-  let serviceStub: Partial<GetOrderInfoService>;
+  let serviceStub: Partial<ScheduledOrdersService>;
 
   serviceStub = {
     GetInfo : () => {
@@ -39,7 +39,7 @@ describe('OrdersRequestsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ OrdersRequestsComponent ],
-      providers: [ {provide: GetOrderInfoService, useValue: serviceStub} ]
+      providers: [ {provide: ScheduledOrdersService, useValue: serviceStub} ]
     });
 
     fixture = TestBed.createComponent(OrdersRequestsComponent);
