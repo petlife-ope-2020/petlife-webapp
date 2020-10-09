@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class GetOrderInfoService {
+export class ScheduledOrdersService {
 
   private mockedInfomation = [
     { 
@@ -53,5 +53,5 @@ export class GetOrderInfoService {
   public GetInfo() {
     return this.mockedInfomation;
   };
-
+  
 }
