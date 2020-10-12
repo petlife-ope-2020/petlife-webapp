@@ -6,51 +6,67 @@ import { Injectable } from '@angular/core';
 export class ScheduledOrdersService {
 
   private mockedInfomation = [
-    { 
-      'ClientName' : 'Allan',
-      'PetName' : 'Alberto',
-      'PetSpecie' : 'Cachorro',
-      'PetBreed' : 'Labrador',
-      'PetAge' : '10',
-      'Service' : 'Vacinação',
-      'Date' : 'Sexta',
-      'Time' : '18:00'
+    {
+      "petshop": {
+          "username": "petshopsp",
+          "name":"PetShop Sao Paulo"
+      },
+      "service": {
+        "id": "1",
+        "name": "Tosa"
+      },
+      "client": {
+        "username": "ericrossi",
+        "name": "Eric Rossi",
+        "pet": {
+          'name' : 'Alberto',
+          'specie' : 'Cachorro',
+          'breed' : 'Labrador',
+          'age' : '10',
+        }
+      },
+      "schedule": {
+        "date-time": "2020-10-06T12:30:00",
+        "confirmed": "true",
+        "cancelled": {
+            "status": "false",
+            "reason": null
+        }
+      }
     },
-    { 
-      'ClientName' : 'Eric',
-      'PetName' : 'Rex',
-      'PetSpecie' : 'Passarinho',
-      'PetBreed' : 'Papagaio',
-      'PetAge' : '3',
-      'Service' : 'Banho e Tosa',
-      'Date' : 'Sexta',
-      'Time' : '18:00'
+  {
+    "petshop": {
+        "username": "petshopsp",
+        "name":"PetShop Sao Paulo"
     },
-    { 
-      'ClientName' : 'Angela',
-      'PetName' : 'Ferdinando',
-      'PetSpecie' : 'Touro',
-      'PetBreed' : 'Corno',
-      'PetAge' : '14',
-      'Service' : 'Banho',
-      'Date' : 'Sexta',
-      'Time' : '18:00'
+    "service": {
+        "id": "2",
+        "name": "Vacinaca"
     },
-    { 
-      'ClientName' : 'Isabela',
-      'PetName' : 'Fofinho',
-      'PetSpecie' : 'Gato',
-      'PetBreed' : 'Egipcio',
-      'PetAge' : '5',
-      'Service' : 'Banho e Tosa',
-      'Date' : 'Sexta',
-      'Time' : '18:00'
+    "client": {
+      "username": "angelasouza",
+      "name": "Angela Souza",
+      "pet": {
+        'name' : 'Fofinho',
+        'specie' : 'Gato',
+        'breed' : 'Egipcio',
+        'age' : '3',
+      }
+    },
+    "schedule": {
+        "date-time": "2020-10-07T12:30:00",
+        "confirmed": "true",
+        "cancelled": {
+            "status": "false",
+            "reason": null
+        }
+      }
     }
   ];
 
   constructor() { }
 
-  public GetInfo() {
+  public getData() {
     return this.mockedInfomation;
   };
   
