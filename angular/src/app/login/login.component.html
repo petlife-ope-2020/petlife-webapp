@@ -4,7 +4,7 @@
             <h1 class="myFont">PETLIFE</h1>
         </div>
         <div class="col-6 myHeight">
-            <div class="myAlignmentTop">
+            <div class="myAlignmentTop40">
                 <div>
                     <div class="row pb-1 justify-content-center">
                         <input #username class="myInput border border-primary rounded" type="text" placeholder="Login">
@@ -13,7 +13,7 @@
                         <input #password class="myInput border border-primary rounded" type="password" placeholder="Senha" name="" id="">
                     </div>
                     <div class="row pt-3 justify-content-center">
-                        <button class="btn btn-outline-primary" name="" id="" (click)="onClickMe(username, password)">Entrar</button>
+                        <button class="btn btn-outline-primary" name="" id="" (click)="onClickMe(username.value, password.value)">Entrar</button>
                     </div>
                 </div>
             </div>
