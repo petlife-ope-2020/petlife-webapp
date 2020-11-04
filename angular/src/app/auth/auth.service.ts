@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,13 +6,13 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  isLoggedIn = true;
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
-
-  public autenticateUser(username: string, password:string){
-    if (username === 'Admin' && password === 'senha123'){
-      this.isLoggedIn = true;
+  public autenticateUser(username, password){
+    let request = {
+      username: username,
+      password: password
     }
+    return this.http.post<any>('/api/user_auth', request);
   }
 }
