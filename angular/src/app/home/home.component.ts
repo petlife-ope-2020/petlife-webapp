@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
 import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,7 @@ import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.ser
 })
 export class HomeComponent implements OnInit {
 
+  loggedUser: string;
   private selectedEvent: any;
   private selectedEventId: any;
   private eventsArray = [
@@ -18,11 +21,12 @@ export class HomeComponent implements OnInit {
   ]
   private requestsArray: Array<any>;
 
-  constructor(private scheduledOrders : ScheduledOrdersService) {  }
+  constructor(private scheduledOrders : ScheduledOrdersService, private cookie: CookieService, private route: Router) {  }
   
   ngOnInit(): void {
-    this.requestsArray = this.scheduledOrders.getData();
-    this.createEvent();
+    let responseLogin = JSON.parse(this.cookie.get('Response'));
+    this.loggedUser = responseLogin.username;
+    this.getOrders();
   }
 
   calendarOptions: CalendarOptions = {
@@ -71,6 +75,24 @@ export class HomeComponent implements OnInit {
         )
       }
     });  
+  }
+
+  getOrders(){
+    this.scheduledOrders.getData().subscribe(( data: any) => {
+      this.requestsArray = data;
+      this.createEvent();
+    });
+  }
+
+  onClickLeave(){
+    this.cookie.delete('IsLogged');
+    this.route.navigate(['login']);
+  }
+  onClickService(){
+    this.route.navigate(['services']);
+  }
+  onClickProfile(){
+    this.route.navigate(['profile']);
   }
 
 }

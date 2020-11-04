@@ -16,12 +16,11 @@ export class OrdersRequestsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.requestsArray = this.scheduledOrders.getData();
-    this.createEvent()
+    this.getOrders();
   }
 
   createEvent(){
-    this.requestsArray.forEach(element => {
+    this.requestsArray.forEach((element, index) => {
       if (element.schedule.confirmed) {
         this.orders.push(
           { 
@@ -31,12 +30,43 @@ export class OrdersRequestsComponent implements OnInit {
             PetBreed: element.client.pet.breed,
             PetAge: element.client.pet.age,
             Service: element.service.name,
-            Date: element.schedule['date-time']
+            Date: element.schedule['date-time'],
+            Id: element.order_id
           }
         )
         this.orders = [...this.orders]
       }
     });  
+  }
+
+  getOrders(){
+    this.scheduledOrders.getData().subscribe( ( data:any ) => {
+      this.requestsArray = data;
+      this.createEvent();
+    });
+  }
+
+  acceptOrder(id){
+    let element;
+    element = this.requestsArray.forEach(element => {
+      if (element.id == id){
+        element.schedule.confirmed = true;
+        return element;
+      }     
+    });
+    this.scheduledOrders.acceptOrder(element).subscribe();
+  }
+
+  refuseOrder(id){
+    let element;
+    element = this.requestsArray.forEach(element => {
+      if (element.id == id){
+        element.schedule.cancelled.status = true;
+        element.schedule.cancelled.reason = "Not accepted!";
+        return element;
+      }     
+    });
+    this.scheduledOrders.refuseOrder(element).subscribe();
   }
 
 }
