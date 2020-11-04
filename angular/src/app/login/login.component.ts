@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'app-login',
@@ -9,19 +10,21 @@ import { AuthService } from '../auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private route: Router) {
+  constructor(private authService: AuthService, private route: Router, private cookie: CookieService) {
   }
 
   ngOnInit(): void {
   }
 
   public onClickMe(username : any, password : any){
-    this.authService.autenticateUser(username.value, password.value);
-    if (this.authService.isLoggedIn === true) {
-      this.route.navigate(['home']); 
-    }
-    username.value = '';
-    password.value = '';
-    
+  
+    this.authService.autenticateUser(username, password)
+    .subscribe((data) => {
+      if (data['boolean']){
+        this.cookie.set('IsLogged', 'true', 1);
+        this.cookie.set('Response', JSON.stringify(data['reponse']), 1);
+        this.route.navigate(['home']);
+      }
+    });
   }
 }
