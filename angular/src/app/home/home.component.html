@@ -8,12 +8,13 @@
                 <div class="col-4" style="text-align: center;">
                     <img src="https://image.freepik.com/vetores-gratis/perfil-de-avatar-de-homem-no-icone-redondo_24640-14044.jpg" class="rounded-circle img-fluid"/> 
                     <br/>
-                    Olá, Admin!
+                    Olá, {{loggedUser}}!
                 </div>   
 
                 <div class="col">
-                    <br/>Serviços
-                    <br/>Perfil da empresa
+                    <button class="btn btn-outline-primary mb-1 mt-3" style="width: 40%;" (click)="onClickService()">Serviços</button>
+                    <br/><button class="btn btn-outline-primary mb-1" style="width: 40%;" (click)="onClickProfile()">Perfil</button>
+                    <br/><button class="btn btn-outline-primary" style="width: 40%;" (click)="onClickLeave()">Sair</button>
                 </div>
 
             </div>

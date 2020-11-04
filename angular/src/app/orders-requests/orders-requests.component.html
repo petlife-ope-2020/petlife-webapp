@@ -12,8 +12,8 @@
             <br>{{order.Time}}
             </div>
             <div class="row align-items-end justify-content-around" style="height: 50%;">
-            <button type="button" class="btn btn btn-success">Aceitar</button>
-            <button type="button" class="btn btn-danger">Rejeitar</button>
+            <button type="button" (click)="acceptOrder(order.Id)" class="btn btn btn-success">Aceitar</button>
+            <button type="button" (click)="refuseOrder(order.Id)" class="btn btn-danger">Rejeitar</button>
             </div>
         </div>
     </div>
