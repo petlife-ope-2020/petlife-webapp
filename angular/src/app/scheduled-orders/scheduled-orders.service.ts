@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,69 +6,23 @@ import { Injectable } from '@angular/core';
 })
 export class ScheduledOrdersService {
 
-  private mockedInfomation = [
-    {
-      "petshop": {
-          "username": "petshopsp",
-          "name":"PetShop Sao Paulo"
-      },
-      "service": {
-        "id": "1",
-        "name": "Tosa"
-      },
-      "client": {
-        "username": "ericrossi",
-        "name": "Eric Rossi",
-        "pet": {
-          'name' : 'Alberto',
-          'specie' : 'Cachorro',
-          'breed' : 'Labrador',
-          'age' : '10',
-        }
-      },
-      "schedule": {
-        "date-time": "2020-10-06T12:30:00",
-        "confirmed": "true",
-        "cancelled": {
-            "status": "false",
-            "reason": null
-        }
-      }
-    },
-  {
-    "petshop": {
-        "username": "petshopsp",
-        "name":"PetShop Sao Paulo"
-    },
-    "service": {
-        "id": "2",
-        "name": "Vacinaca"
-    },
-    "client": {
-      "username": "angelasouza",
-      "name": "Angela Souza",
-      "pet": {
-        'name' : 'Fofinho',
-        'specie' : 'Gato',
-        'breed' : 'Egipcio',
-        'age' : '3',
-      }
-    },
-    "schedule": {
-        "date-time": "2020-10-07T12:30:00",
-        "confirmed": "true",
-        "cancelled": {
-            "status": "false",
-            "reason": null
-        }
-      }
-    }
-  ];
-
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public getData() {
-    return this.mockedInfomation;
+    return this.http.get('/api/get_orders');
   };
   
+  public acceptOrder(element){
+    return this.http.put('/api/accept_orders', 
+    {
+      "order": element
+    });
+  };
+
+  public refuseOrder(element){
+    return this.http.put('/api/refuse_orders',
+    {
+      "order": element
+    });
+  };
 }
