@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { PageNoFoundComponent } from './page-no-found/page-no-found.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ServicesComponent } from './services/services.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'services', component: ServicesComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
   {path: '**', component: PageNoFoundComponent},
 ];
 
