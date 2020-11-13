@@ -15,12 +15,14 @@ export class RegisterComponent implements OnInit {
   }
 
   onClickMe(username, name, email, cnpj, password, address, phone_number){
+    
     this.http.post('/api/user_register', {username, name, email, cnpj, password, address, phone_number})
-    .subscribe((response) => {
-      if (response){
+    .subscribe((response: any) => {
+      console.log(response)
+      if (response.boolean){
         this.route.navigate(['login']);
+        return;
       }
-      console.log('Error on Registration!');
     });
   }
 

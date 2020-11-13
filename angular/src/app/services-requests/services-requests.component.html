@@ -1,7 +1,14 @@
-<cdk-virtual-scroll-viewport itemSize="" style="width: 100%;height: 100px;">
-    <div class="row mx-auto" *cdkVirtualFor="let servico of servicos">
+<cdk-virtual-scroll-viewport itemSize="" style="width: 100%;height: 1000px;">
+    <div *cdkVirtualFor="let servico of servicos">
+        <div *ngIf="servico.color == 'red'" style="color:red" class="row mx-auto">
             <label type="text" style="width:25%" class="myInput border border-primary rounded mr-3">{{servico.name}}</label>
             <label type="text" style="width:25%" class="myInput border border-primary rounded mr-3">{{servico.price}}</label>
-            <button type="button" (click)="removeService(servico.id)" class="btn btn-danger" style="height: 100%;">Remover</button>
+            <button type="button" (click)="removeService(servico.service_id)" class="btn btn-success" style="height: 100%;">Adicionar</button>
+        </div>
+        <div *ngIf="servico.color == 'green'" style="color:green" class="row mx-auto">
+            <label type="text" style="width:25%" class="myInput border border-primary rounded mr-3">{{servico.name}}</label>
+            <label type="text" style="width:25%" class="myInput border border-primary rounded mr-3">{{servico.price}}</label>
+            <button type="button" (click)="removeService(servico.service_id)" class="btn btn-danger" style="height: 100%;">Remover</button>
+        </div>
     </div>
 </cdk-virtual-scroll-viewport>
