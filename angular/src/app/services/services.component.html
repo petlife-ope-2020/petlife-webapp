@@ -6,7 +6,8 @@
         <div class="row mb-3 p-3 border-bottom">
             <input #servicename style="width:25%" type="text" placeholder="Nome do Serviço" class="myInput border border-primary rounded mr-3">
             <input #serviceprice style="width:25%" type="text" placeholder="Preço do Serviço" class="myInput border border-primary rounded mr-3">
-            <button type="button" (click)="addService()" class="btn btn-success">Adicionar</button>
+            <button type="button" (click)="addService(servicename.value, serviceprice.value)" class="btn btn-success">Adicionar</button>
+
         </div>
         <div class="container-flex">
             <app-services-requests></app-services-requests>

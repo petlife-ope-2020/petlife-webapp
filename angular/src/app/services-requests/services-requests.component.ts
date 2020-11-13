@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-services-requests',
@@ -8,16 +10,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesRequestsComponent implements OnInit {
 
-  public servicos: Array<any>;
+  public servicos: any;
+  private nameUserPetShop: any;
+  private array: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookie: CookieService) { }
 
   ngOnInit(): void {
-    this.servicos = [{'name': 'Tosa', price: '19,00'}, {name: 'Banho', price: '19,00'}]
+    this.array = []
+    this.servicos = []
+    this.nameUserPetShop = {
+      petshop_username: JSON.parse(this.cookie.get('Response'))['username'], 
+      petshop_name: JSON.parse(this.cookie.get('Response'))['name']
+    };
+    this.getServiceRequest();
   }
 
-  removeService(id){
-    this.http.delete('', {}).subscribe();
+  getServiceRequest(){
+    this.http.get('/api/get_services').subscribe( (response :any) => {
+      response.forEach(element1 => {
+
+        JSON.parse(this.cookie.get('Response')).services.forEach(element2 => {
+          if (element2.service_id == element1._id){
+            let dict = {
+              service_id: element1.service_id,
+              name: element1.service_name,
+              price: element2.price,
+              color: 'green'
+            }
+            this.addArray(dict)
+          }else {
+            let dict = {
+              service_id: element1._id,
+              name: element1.service_name,
+              price: 'N/A',
+              color: 'red'
+            }
+            this.addArray(dict)
+          }
+          
+        })   
+
+      })
+      this.servicos = [...this.servicos]
+    })
   }
 
+  removeService(service_id){
+    let petshop_username = JSON.parse(this.cookie.get('response')['username']);
+    this.http.request('DELETE', '/api/delete_services', {body: {service_id, petshop_username}})
+    .subscribe(response => {});
+  }
+
+  addArray(dict){
+    this.servicos.push(dict);
+  }
 }

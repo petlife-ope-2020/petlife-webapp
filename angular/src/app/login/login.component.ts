@@ -17,12 +17,12 @@ export class LoginComponent implements OnInit {
   }
 
   public onClickMe(username : any, password : any){
-  
     this.authService.autenticateUser(username, password)
     .subscribe((data) => {
-      if (data['boolean']){
+      if (data.boolean){
         this.cookie.set('IsLogged', 'true', 1);
-        this.cookie.set('Response', JSON.stringify(data['reponse']), 1);
+        this.cookie.set('Password', JSON.stringify(password), 1);
+        this.cookie.set('Response', JSON.stringify(data.response), 1);
         this.route.navigate(['home']);
       }
     });
