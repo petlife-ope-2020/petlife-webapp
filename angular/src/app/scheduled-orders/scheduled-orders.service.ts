@@ -9,20 +9,17 @@ export class ScheduledOrdersService {
   constructor(private http: HttpClient) { }
 
   public getData() {
-    return this.http.get('/api/get_orders');
-  };
-  
-  public acceptOrder(element){
-    return this.http.put('/api/accept_orders', 
-    {
-      "order": element
-    });
-  };
+    return this.http.get('/api/get_orders', {params: {username: 'username'}});
+  }
 
-  public refuseOrder(element){
-    return this.http.put('/api/refuse_orders',
+  public acceptOrder(id){
+    return this.http.put('/api/accept_orders', {id});
+  }
+
+  public refuseOrder(id){
+    return this.http.delete('/api/refuse_orders',
     {
-      "order": element
+      params: { id }
     });
   };
 }

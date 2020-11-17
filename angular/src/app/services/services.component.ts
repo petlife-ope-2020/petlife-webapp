@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../auth/auth.service';
+import { ServicesRequestsServicesService } from '../services-requests-service/services-requests-services.service';
 import { ServicesRequestsComponent } from '../services-requests/services-requests.component'
 
 @Component({
@@ -11,30 +13,34 @@ import { ServicesRequestsComponent } from '../services-requests/services-request
 })
 export class ServicesComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router, private cookie: CookieService) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookie: CookieService,
+    private service: ServicesRequestsServicesService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-    
+
   }
 
-  addService(service_name, price){
-    this.http.post('/api/add_services', { service_name })
-    .subscribe( (response: any) => {
-      this.updateUser(response.id, service_name, price);
+  addService(service_name, price) {
+    this.service.addServices(service_name).subscribe((response: any) => {
       this.updateService(response.id);
+      this.updateUser(response.id, service_name, price);
     });
   }
 
-  updateService(id){
+  updateService(id) {
     let shopObj = JSON.parse(this.cookie.get('Response'));
     this.http.put('/api/update_services', {
       'petshop_username': shopObj.username,
       'petshop_name': shopObj.name,
       'service_id': id
-    }).subscribe(response => console.log(response));
+    }).subscribe(response => {});
   }
 
-  updateUser(id, service_name, price){
+  updateUser(id, service_name, price) {
     let shopObj = JSON.parse(this.cookie.get('Response'));
     let pass = JSON.parse(this.cookie.get('Password'));
     let obj = {
@@ -45,10 +51,37 @@ export class ServicesComponent implements OnInit {
       price: price
     }
     this.http.put('/api/update_users', obj)
-    .subscribe(response => console.log(response));
+      .subscribe(response => {
+        let username = JSON.parse(this.cookie.get('Response')).username;
+        let password = JSON.parse(this.cookie.get('Password'));
+        this.authService.autenticateUser(username, password).subscribe( data => {
+          if (data.boolean){
+            this.cookie.delete('Response');
+            this.cookie.delete('Password');
+            this.cookie.set('Password', JSON.stringify(password), 1);
+            this.cookie.set('Response', JSON.stringify(data.response), 1);
+          }
+          window.location.reload();
+          })
+      });
   }
 
-  backPage(){
+  backPage() {
     this.router.navigate(['home']);
+  }
+
+  UpdateCookie(){
+    let username = JSON.parse(this.cookie.get('Response')).username;
+    let password = JSON.parse(this.cookie.get('Password'));
+    this.authService.autenticateUser(username, password).subscribe( data => {
+      if (data.boolean){
+        this.cookie.delete('Response');
+        this.cookie.delete('Password');
+        this.cookie.set('Password', JSON.stringify(password), 1);
+        this.cookie.set('Response', JSON.stringify(data.response), 1);
+        window.location.reload();
+      }
+      window.location.reload();
+    })
   }
 }
