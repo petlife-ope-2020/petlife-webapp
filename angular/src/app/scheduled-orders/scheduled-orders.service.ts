@@ -8,8 +8,8 @@ export class ScheduledOrdersService {
 
   constructor(private http: HttpClient) { }
 
-  public getData() {
-    return this.http.get('/api/get_orders', {params: {username: 'username'}});
+  public getData(username) {
+    return this.http.get('/api/get_orders', {params: {username}});
   }
 
   public acceptOrder(id){

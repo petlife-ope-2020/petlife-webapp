@@ -58,9 +58,12 @@ export class ServicesRequestsComponent implements OnInit {
 
   removeService(service_id){
     const petshop_username = JSON.parse(this.cookie.get('Response')).username;
+    const password = JSON.parse(this.cookie.get('Password'));
     this.service.removeServices(service_id, petshop_username).subscribe(response => {
-      this.UpdateCookie();
     });
+    this.service.removeUserService(service_id, petshop_username, password).subscribe( response => {
+      this.UpdateCookie();
+    })
   }
 
   addService(service_id, service_name, price) {
@@ -87,8 +90,9 @@ export class ServicesRequestsComponent implements OnInit {
       service_id: id,
       price: price
     }
-    this.http.put('/api/update_users', obj).subscribe(response => response);
-    this.UpdateCookie();
+    this.http.put('/api/update_users', obj).subscribe(response => {
+      this.UpdateCookie();
+    });
   }
 
   UpdateCookie(){
@@ -100,7 +104,6 @@ export class ServicesRequestsComponent implements OnInit {
         this.cookie.delete('Password');
         this.cookie.set('Password', JSON.stringify(password), 1);
         this.cookie.set('Response', JSON.stringify(data.response), 1);
-        console.log('Hello')
         window.location.reload();
       }
     })
