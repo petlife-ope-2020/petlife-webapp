@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class OrdersRequestsComponent implements OnInit {
   orders = [];
   isVisible = true;
 
-  constructor(private scheduledOrders: ScheduledOrdersService) {
+  constructor(private scheduledOrders: ScheduledOrdersService, private cookie: CookieService) {
   }
 
   ngOnInit(): void {
@@ -40,7 +41,8 @@ export class OrdersRequestsComponent implements OnInit {
   }
 
   getOrders() {
-    this.scheduledOrders.getData().subscribe((data: any) => {
+    const username = JSON.parse(this.cookie.get('Response')).username;
+    this.scheduledOrders.getData(username).subscribe((data: any) => {
       this.requestsArray = data;
       this.createEvent();
     });

@@ -81,7 +81,8 @@ export class HomeComponent implements OnInit {
   }
 
   getOrders() {
-    this.scheduledOrders.getData().subscribe((data: any) => {
+    const username = JSON.parse(this.cookie.get('Response')).username;
+    this.scheduledOrders.getData(username).subscribe((data: any) => {
       this.requestsArray = data;
       this.createEvent();
     });
@@ -89,6 +90,8 @@ export class HomeComponent implements OnInit {
 
   onClickLeave() {
     this.cookie.delete('IsLogged');
+    this.cookie.delete('Response');
+    this.cookie.delete('Password');
     this.route.navigate(['login']);
   }
   onClickService() {

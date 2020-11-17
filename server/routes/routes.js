@@ -91,7 +91,6 @@ router.delete('/api/delete_services', (req, res) => {
     service_id: req.query.service_id
   } })
     .then(response => {
-      console.log(response.data)
       res.send({data: 'Deleted'})
     })
     .catch(error => console.log(error.response)
@@ -112,6 +111,24 @@ router.post('/api/add_services', (req, res) => {
       }
     })
     .catch(error => console.log(error))
+});
+
+//Delete Service from User
+router.delete('/api/delete_user_service', (req, res) => {
+  
+  axios.delete('http://localhost:8181/shops', {
+    params: {
+      username: req.query.petshop_username,
+      password: req.query.password,
+      service_id: req.query.service_id
+    }
+  })
+  .then(response => {
+    res.send({message: 'Done!'})
+  })
+  .catch(error => {
+  })
+
 });
 
 //Rota PUT para users para editar Profile

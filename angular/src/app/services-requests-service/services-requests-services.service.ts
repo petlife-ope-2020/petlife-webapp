@@ -14,8 +14,16 @@ export class ServicesRequestsServicesService {
 
   removeServices(service_id, petshop_username){
     return this.http.delete('/api/delete_services', {params: {
-      petshop_username: petshop_username,
-      service_id: service_id
+      petshop_username,
+      service_id
+    }});
+  }
+
+  removeUserService(service_id, petshop_username, password){
+    return this.http.delete('/api/delete_user_service', {params: {
+      petshop_username,
+      password,
+      service_id
     }});
   }
 
