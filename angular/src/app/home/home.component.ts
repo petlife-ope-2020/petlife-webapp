@@ -11,29 +11,19 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  constructor(private scheduledOrders: ScheduledOrdersService, private cookie: CookieService, private route: Router) { }
+
   loggedUser: string;
   private selectedEvent: any;
   private selectedEventId: any;
-  private eventsArray = [
-    { id : '1', title: 'Consulta 1', start: '2020-10-06T12:30:00' },
-    { id : '2', title: 'Consulta 2', start: '2020-10-06T08:30:00' },
-    { id : '3', title: 'Consulta 3', start: '2020-10-07T12:30:00' }
-  ]
-  private requestsArray: Array<any>;
-
-  constructor(private scheduledOrders : ScheduledOrdersService, private cookie: CookieService, private route: Router) {  }
-  
-  ngOnInit(): void {
-    let responseLogin = JSON.parse(this.cookie.get('Response'));
-    this.loggedUser = responseLogin.username;
-    this.getOrders();
-  }
+  private eventsArray: Array<any> = [];
+  public requestsArray: Array<any>;
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     selectable: true,
     weekends: true,
-    events: this.eventsArray ,
+    events: this.eventsArray,
     //schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
     headerToolbar: {
       left: 'dayGridMonth,timeGridWeek,timeGridDay',
@@ -44,7 +34,7 @@ export class HomeComponent implements OnInit {
 
     },
     customButtons: {
-      cancelButton:{
+      cancelButton: {
         text: 'Cancelar',
         click: () => {
           this.removeEvent();
@@ -57,41 +47,54 @@ export class HomeComponent implements OnInit {
     }
   };
 
-  removeEvent(){
+  ngOnInit(): void {
+    const responseLogin = JSON.parse(this.cookie.get('Response'));
+    this.loggedUser = responseLogin.username;
+    this.getOrders();
+  }
+
+  removeEvent() {
     this.selectedEvent.remove();
     this.eventsArray.forEach(element => {
-      if(element['id'] === this.selectedEventId){
+      if (element['id'] === this.selectedEventId) {
         const elementIndex = this.eventsArray.indexOf(element);
         this.eventsArray.splice(elementIndex, 1);;
       }
     });
   }
 
-  createEvent(){
+  createEvent() {
     this.requestsArray.forEach(element => {
-      if (element.schedule.confirmed) {
+      if (element.status.confirmed) {
+        let date = element.schedule.datetime.slice(0, 10);
+        let time = element.schedule.datetime.slice(11).replace('-', ':');
+        let datetime = date.concat('T', time, ':00');
         this.eventsArray.push(
-          { id : this.requestsArray.indexOf(element).toString(), title: element.client.name, start: element.schedule["date-time"]}
+          {
+            id: this.requestsArray.indexOf(element).toString(),
+            title: element.client.name,
+            start: datetime
+          }
         )
       }
-    });  
+    });
   }
 
-  getOrders(){
-    this.scheduledOrders.getData().subscribe(( data: any) => {
+  getOrders() {
+    this.scheduledOrders.getData().subscribe((data: any) => {
       this.requestsArray = data;
       this.createEvent();
     });
   }
 
-  onClickLeave(){
+  onClickLeave() {
     this.cookie.delete('IsLogged');
     this.route.navigate(['login']);
   }
-  onClickService(){
+  onClickService() {
     this.route.navigate(['services']);
   }
-  onClickProfile(){
+  onClickProfile() {
     this.route.navigate(['profile']);
   }
 

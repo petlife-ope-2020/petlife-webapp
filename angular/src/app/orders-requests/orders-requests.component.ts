@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
 
 @Component({
@@ -12,61 +12,49 @@ export class OrdersRequestsComponent implements OnInit {
   orders = [];
   isVisible = true;
 
-  constructor(private scheduledOrders : ScheduledOrdersService) {
-   }
+  constructor(private scheduledOrders: ScheduledOrdersService) {
+  }
 
   ngOnInit(): void {
     this.getOrders();
   }
 
-  createEvent(){
-    this.requestsArray.forEach((element, index) => {
-      if (element.schedule.confirmed) {
+  createEvent() {
+    this.requestsArray.forEach(element => {
+      if ((!element.status.confirmed && !element.status.rejected)) {
         this.orders.push(
-          { 
+          {
             ClientName: element.client.name,
             PetName: element.client.pet.name,
-            PetSpecie: element.client.pet.specie,
+            PetSpecie: element.client.pet.species,
             PetBreed: element.client.pet.breed,
-            PetAge: element.client.pet.age,
+            PetAge: element.client.pet.age_years,
             Service: element.service.name,
-            Date: element.schedule['date-time'],
-            Id: element.order_id
+            Date: element.schedule.datetime,
+            Id: element._id
           }
-        )
-        this.orders = [...this.orders]
+        );
+        this.orders = [...this.orders];
       }
-    });  
+    });
   }
 
-  getOrders(){
-    this.scheduledOrders.getData().subscribe( ( data:any ) => {
+  getOrders() {
+    this.scheduledOrders.getData().subscribe((data: any) => {
       this.requestsArray = data;
       this.createEvent();
     });
   }
 
-  acceptOrder(id){
-    let element;
-    element = this.requestsArray.forEach(element => {
-      if (element.id == id){
-        element.schedule.confirmed = true;
-        return element;
-      }     
-    });
-    this.scheduledOrders.acceptOrder(element).subscribe();
+  acceptOrder(id) {
+    this.scheduledOrders.acceptOrder(id).subscribe(response => {
+      window.location.reload();
+    })
   }
 
-  refuseOrder(id){
-    let element;
-    element = this.requestsArray.forEach(element => {
-      if (element.id == id){
-        element.schedule.cancelled.status = true;
-        element.schedule.cancelled.reason = "Not accepted!";
-        return element;
-      }     
-    });
-    this.scheduledOrders.refuseOrder(element).subscribe();
+  refuseOrder(id) {
+    this.scheduledOrders.refuseOrder(id).subscribe(response => {
+      window.location.reload();
+    })
   }
-
 }
