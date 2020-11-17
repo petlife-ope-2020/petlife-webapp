@@ -1,13 +1,18 @@
 <div class="container-fluid" style="width: 35%; margin-top: 10vh; margin-bottom: 10vh;">
-    <table class="table">
+  <div class="row mb-3 p-3">
+    <button type="button" style="margin-right: 10px;" (click)="backPage()" class="btn btn-primary">Voltar</button>
+    <button type="button" (click)="editInformation(name.value, email.value, address.value, phone_number.value)" class="btn btn-primary">Salvar</button>
+  </div> 
+  <div class="row">
+  <table class="table">
         <tbody>
           <tr>
             <th scope="row">Nome</th>
-            <td>{{ProfData.name}}</td>
+            <td><input type="text" #name placeholder="{{ProfData.name}}"></td>
           </tr>
           <tr>
             <th scope="row">Email</th>
-            <td>{{ProfData.email}}</td>
+            <td><input type="text" #email placeholder="{{ProfData.email}}"></td>
           </tr>
           <tr>
             <th scope="row">CNPJ</th>
@@ -15,12 +20,13 @@
           </tr>
           <tr>
             <th scope="row">Endereço</th>
-            <td>{{ProfData.address}}</td>
+            <td><input type="text" #address placeholder="{{ProfData.address}}"></td>
           </tr>
           <tr>
             <th scope="row">Telefone</th>
-            <td>{{ProfData.phone_number}}</td>
+            <td><input type="text" #phone_number placeholder="{{ProfData.phone_number}}"></td>
           </tr>
         </tbody>
       </table>
+  </div>
 </div>
