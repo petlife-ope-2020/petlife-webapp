@@ -1,4 +1,6 @@
 
+const { default: Axios } = require('axios');
+const { response } = require('express');
 const express = require('express'),
   axios = require('axios'),
   FormData = require('form-data');
@@ -8,17 +10,40 @@ router.use(express.json());
 
 //Rota GET para orders
 router.get('/api/get_orders', (req, res) => {
-
+  axios.get('http://localhost:8383/shop',
+    {
+      params: {
+        username: req.query.username
+      }
+    })
+    .then(response => {
+      res.send(response.data)
+    })
+    .catch(error => {})
 });
 
 //Rota PUT para orders
 router.put('/api/accept_orders', (req, res) => {
-
+  
+  axios.put(`http://localhost:8383/shop?order_id=${req.body.id}`)
+  .then(response => {
+    res.send({ message: 'Completed'})
+  })
+  .catch(error => console.log(error.response))
 });
 
 //Rota DELETE para orders
 router.delete('/api/refuse_orders', (req, res) => {
-
+  
+  axios.delete('http://localhost:8383/shop', {
+    params: {
+      order_id: req.query.id
+    }
+  })
+  .then(response => {
+    res.send({message: 'Completed'})
+  })
+  .catch(error => console.log(error.response))
 });
 
 //Rota GET para services
@@ -60,17 +85,17 @@ router.put('/api/update_services', (req, res) => {
 
 //Rota DELETE para services
 router.delete('/api/delete_services', (req, res) => {
-
-  const form = new FormData();
-  form.append('username', req.body.service_id);
-  form.append('password', req.body.petshop_username);
-
-  axios.delete('http://localhost:8282/manage', { data: form })
+  axios.delete('http://localhost:8282/manage',
+  { params: {
+    petshop_username: req.query.petshop_username,
+    service_id: req.query.service_id
+  } })
     .then(response => {
+      console.log(response.data)
+      res.send({data: 'Deleted'})
     })
-    .catch(error => {
-      console.log(error)
-    })
+    .catch(error => console.log(error.response)
+    )
 });
 
 //Rota POST para services
@@ -89,14 +114,37 @@ router.post('/api/add_services', (req, res) => {
     .catch(error => console.log(error))
 });
 
+//Rota PUT para users para editar Profile
+router.put('/api/update_profile', (req, res) => {
+  const form = new FormData();
+
+  form.append('username', req.body.username);
+  form.append('password', req.body.password);
+  form.append('name', req.body.name);
+  form.append('email', req.body.email);
+  form.append('address', req.body.address);
+  form.append('phone_number', req.body.phone_number);
+
+  axios.put('http://localhost:8181/shops', form,
+    { headers: form.getHeaders() })
+    .then(response => {
+      {
+        res.send();
+      }
+    })
+    .catch(error => console.log())
+
+});
+
+
 //Rota PUT para users
 router.put('/api/update_users', (req, res) => {
 
-  let services = JSON.stringify([{
+  let services = JSON.stringify({
     service_name: req.body.service_name,
     service_id: req.body.service_id,
     price: req.body.price
-  }])
+  })
 
   const form = new FormData();
 
@@ -105,16 +153,14 @@ router.put('/api/update_users', (req, res) => {
   form.append('services', services);
   form.append('type', 'shop');
 
-  console.log(form)
-
   axios.put('http://localhost:8181/shops', form,
     { headers: form.getHeaders() })
     .then(response => {
-      if (response == 200) {
-        res.send(response);
+      {
+        res.send();
       }
     })
-    .catch(error => console.log(error.response.data))
+    .catch(error => console.log())
 
 });
 
