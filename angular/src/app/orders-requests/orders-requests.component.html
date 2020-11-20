@@ -1,19 +1,34 @@
-<cdk-virtual-scroll-viewport itemSize="" style="height: 95%; width: 100;">
-    <div class="row border" style="padding: 2px; width:100%;" *cdkVirtualFor="let order of orders">
-        <div class="col-8">
-            {{order.ClientName}}
-            <br>{{order.PetName}}
-            <br>{{order.PetSpecie}} - {{order.PetBreed}} - {{order.PetAge}} Anos
-            <br>{{order.Service}} 
-        </div>
+<cdk-virtual-scroll-viewport itemSize="" style="height: 100%;">
+    <div class="row border-bottom" *cdkVirtualFor="let order of orders">
         <div class="col">
-            <div class="row justify-content-center" style="height: 50%; text-align: center;">
-            <br>{{order.Date}}
-            <br>{{order.Time}}
-            </div>
-            <div class="row align-items-end justify-content-around" style="height: 50%;">
-            <button type="button" (click)="acceptOrder(order.Id)" class="btn btn btn-success">Aceitar</button>
-            <button type="button" (click)="refuseOrder(order.Id)" class="btn btn-danger">Rejeitar</button>
+            <div class="card mt-1 ">
+                <div class="card-header">
+                    {{order.ClientName}}
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless table-responsive-sm">
+                        <thead>
+                            <tr>
+                            <th scope="col">Espécie</th>
+                            <th scope="col">Raça</th>
+                            <th scope="col">Serviço</th>
+                            <th scope="col">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{order.PetSpecie}}</td>
+                                <td>{{order.PetBreed}}</td>
+                                <td>{{order.Service}}</td>
+                                <td>{{order.Date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row justify-content-around">
+                        <button type="button" (click)="acceptOrder(order.Id)" style="width: 40%;" class="btn btn btn-info">Aceitar</button>
+                        <button type="button" (click)="refuseOrder(order.Id)" style="width: 40%;" class="btn btn-danger">Rejeitar</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
