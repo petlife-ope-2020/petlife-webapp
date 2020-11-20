@@ -24,14 +24,24 @@ export class HomeComponent implements OnInit {
     selectable: true,
     weekends: true,
     events: this.eventsArray,
-    //schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-    headerToolbar: {
-      left: 'dayGridMonth,timeGridWeek,timeGridDay',
-      center: 'title',
-      right: 'cancelButton prevYear,prev,next,nextYear'
+    locale: 'pt-br',
+    titleFormat: { day: 'numeric',  month: 'short', year: 'numeric'},
+    allDaySlot: false,
+    slotDuration: '01:00:00',
+    nowIndicator: true,
+    expandRows: true,
+    buttonText: {
+      today:    'Hoje',
+      month:    'Mês',
+      week:     'Semana',
+      day:      'Dia',
+      list:     'Lista'
     },
-    footerToolbar: {
-
+    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    headerToolbar: {
+      left: 'timeGridDay,timeGridWeek,dayGridMonth',
+      center: 'title',
+      right: 'cancelButton prev,next'
     },
     customButtons: {
       cancelButton: {
@@ -86,19 +96,6 @@ export class HomeComponent implements OnInit {
       this.requestsArray = data;
       this.createEvent();
     });
-  }
-
-  onClickLeave() {
-    this.cookie.delete('IsLogged');
-    this.cookie.delete('Response');
-    this.cookie.delete('Password');
-    this.route.navigate(['login']);
-  }
-  onClickService() {
-    this.route.navigate(['services']);
-  }
-  onClickProfile() {
-    this.route.navigate(['profile']);
   }
 
 }
