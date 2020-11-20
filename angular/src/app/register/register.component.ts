@@ -24,4 +24,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  onClickMeLogin(){
+    this.route.navigate(['login']);
+  }
+
 }
