@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
