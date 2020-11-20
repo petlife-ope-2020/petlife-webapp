@@ -23,6 +23,11 @@ export class OrdersRequestsComponent implements OnInit {
   createEvent() {
     this.requestsArray.forEach(element => {
       if ((!element.status.confirmed && !element.status.rejected)) {
+        const year = element.schedule.datetime.slice(0, 4);
+        const month = element.schedule.datetime.slice(5, 7);
+        const day = element.schedule.datetime.slice(8, 10);
+        const hour = (element.schedule.datetime.slice(11).replace('-', ':'));
+        const date = hour.concat(' ', day, '/', month, '/', year)
         this.orders.push(
           {
             ClientName: element.client.name,
@@ -31,7 +36,7 @@ export class OrdersRequestsComponent implements OnInit {
             PetBreed: element.client.pet.breed,
             PetAge: element.client.pet.age_years,
             Service: element.service.name,
-            Date: element.schedule.datetime,
+            Date: date,
             Id: element._id
           }
         );
