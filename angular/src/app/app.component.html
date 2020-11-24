@@ -1,20 +1,20 @@
-<nav class="navbar-expand navbar-dark bg-primary mb-2">
+<nav *ngIf="isLoggedIn()" class="navbar-expand navbar-dark mb-2" style="background-color: #00c5cc;">
     <ul class="navbar-nav nav-pills p-2">
         <li class="nav-item mr-2">
-            <a class="nav-link active" routerLink="/home" routerLinkActive="router-link-active" >Inicio</a>
+            <a class="nav-link active" routerLink="/home" routerLinkActive="router-link-active" style="background-color: #00c5cc;">Inicio</a>
         </li>
         <li class="nav-item mr-2">
-            <a class="nav-link active" routerLink="/services" routerLinkActive="router-link-active" >Serviços</a>
+            <a class="nav-link active" routerLink="/services" routerLinkActive="router-link-active" style="background-color: #00c5cc;">Serviços</a>
         </li>
         <li class="nav-item mr-2">
-            <a class="nav-link active" routerLink="/profile" routerLinkActive="router-link-active" >Perfil</a>
+            <a class="nav-link active" routerLink="/profile" routerLinkActive="router-link-active" style="background-color: #00c5cc;">Perfil</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" (click)="onClickLeave()" routerLink="/login" routerLinkActive="router-link-active">Sair</a>
+            <a class="nav-link active" (click)="onClickLeave()" routerLink="/login" routerLinkActive="router-link-active" style="background-color: #00c5cc;">Sair</a>
         </li>
     </ul>
 </nav>
 <router-outlet></router-outlet>
-<nav class="navbar fixed-bottom navbar-dark mt-2" style="background-color:dodgerblue;">
+<nav *ngIf="isLoggedIn()" class="navbar fixed-bottom navbar-dark mt-2" style="background-color:#00c5cc;">
     <a class="navbar-brand">PetLife</a>
 </nav>
