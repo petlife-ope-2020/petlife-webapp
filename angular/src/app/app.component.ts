@@ -17,4 +17,8 @@ export class AppComponent {
     this.cookie.delete('Password');
     this.cookie.deleteAll();
   }
+
+  isLoggedIn(){
+    return this.cookie.get('IsLogged');
+  }
 }
