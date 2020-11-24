@@ -1,16 +1,18 @@
-
-const { default: Axios } = require('axios');
-const { response } = require('express');
 const express = require('express'),
   axios = require('axios'),
-  FormData = require('form-data');
+  FormData = require('form-data'),
+  envVars = require('../env_vars'),
+  router = express.Router();
 
-const router = express.Router();
 router.use(express.json());
+
+const usersApiUrl = envVars.usersApiBaseUrl,
+  ordersApiUrl = envVars.ordersApiBaseUrl,
+  servicesApiUrl = envVars.servicesApiBaseUrl;
 
 //Rota GET para orders
 router.get('/api/get_orders', (req, res) => {
-  axios.get('http://localhost:8383/shop',
+  axios.get(`${ordersApiUrl}/shop`,
     {
       params: {
         username: req.query.username
@@ -25,7 +27,7 @@ router.get('/api/get_orders', (req, res) => {
 //Rota PUT para orders
 router.put('/api/accept_orders', (req, res) => {
   
-  axios.put(`http://localhost:8383/shop?order_id=${req.body.id}`)
+  axios.put(`${ordersApiUrl}}/shop?order_id=${req.body.id}`)
   .then(response => {
     res.send({ message: 'Completed'})
   })
@@ -35,7 +37,7 @@ router.put('/api/accept_orders', (req, res) => {
 //Rota DELETE para orders
 router.delete('/api/refuse_orders', (req, res) => {
   
-  axios.delete('http://localhost:8383/shop', {
+  axios.delete(`${ordersApiUrl}/shop`, {
     params: {
       order_id: req.query.id
     }
@@ -48,7 +50,7 @@ router.delete('/api/refuse_orders', (req, res) => {
 
 //Rota GET para services
 router.get('/api/get_services', (req, res) => {
-  axios.get('http://localhost:8282/search',
+  axios.get(`${servicesApiUrl}/search`,
     {
       params: {
         service_name: ''
@@ -70,7 +72,7 @@ router.put('/api/update_services', (req, res) => {
   form.append('petshop_username', req.body.petshop_username);
   form.append('service_id', req.body.service_id);
 
-  axios.put('http://localhost:8282/manage', form,
+  axios.put(`${servicesApiUrl}/manage`, form,
     { headers: form.getHeaders() })
     .then(response => {
       if (response == 200) {
@@ -85,7 +87,7 @@ router.put('/api/update_services', (req, res) => {
 
 //Rota DELETE para services
 router.delete('/api/delete_services', (req, res) => {
-  axios.delete('http://localhost:8282/manage',
+  axios.delete(`${servicesApiUrl}/manage`,
   { params: {
     petshop_username: req.query.petshop_username,
     service_id: req.query.service_id
@@ -103,7 +105,7 @@ router.post('/api/add_services', (req, res) => {
   const form = new FormData();
   form.append('service_name', req.body.service_name);
 
-  axios.post('http://localhost:8282/manage', form,
+  axios.post(`${servicesApiUrl}/manage`, form,
     { headers: form.getHeaders() })
     .then(response => {
       if (response.status == 200) {
@@ -116,7 +118,7 @@ router.post('/api/add_services', (req, res) => {
 //Delete Service from User
 router.delete('/api/delete_user_service', (req, res) => {
   
-  axios.delete('http://localhost:8181/shops', {
+  axios.delete(`${usersApiUrl}/shops`, {
     params: {
       username: req.query.petshop_username,
       password: req.query.password,
@@ -142,7 +144,7 @@ router.put('/api/update_profile', (req, res) => {
   form.append('address', req.body.address);
   form.append('phone_number', req.body.phone_number);
 
-  axios.put('http://localhost:8181/shops', form,
+  axios.put(`${usersApiUrl}/shops`, form,
     { headers: form.getHeaders() })
     .then(response => {
       {
@@ -170,7 +172,7 @@ router.put('/api/update_users', (req, res) => {
   form.append('services', services);
   form.append('type', 'shop');
 
-  axios.put('http://localhost:8181/shops', form,
+  axios.put(`${usersApiUrl}/shops`, form,
     { headers: form.getHeaders() })
     .then(response => {
       {
@@ -194,7 +196,7 @@ router.post('/api/user_register', (req, res) => {
   form.append('phone_number', req.body.phone_number);
   form.append('type', 'shop');
 
-  axios.post('http://localhost:8181/shops', form,
+  axios.post(`${usersApiUrl}/shops`, form,
     { headers: form.getHeaders() })
     .then(response => {
       if (response.status = 200) {
@@ -212,7 +214,7 @@ router.post('/api/user_auth', (req, res) => {
   form.append('password', req.body.password);
   form.append('type', 'shop');
 
-  axios.post('http://localhost:8181/auth', form, { headers: form.getHeaders() })
+  axios.post(`${usersApiUrl}/auth`, form, { headers: form.getHeaders() })
     .then(response => {
       if (response.status = 200) {
         res.send({ 'boolean': true, 'response': response.data });
