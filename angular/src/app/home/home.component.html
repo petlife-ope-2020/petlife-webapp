@@ -1,0 +1,27 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-5">
+            <div class="container-fluid h-100">
+                <div class="card h-100">
+                    <div class="card-header" style="background-color: #ECECEC;">
+                        PEDIDOS
+                    </div>
+                    <div class="card-body">
+                        <app-orders-requests></app-orders-requests>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-7">
+            <div class="container-fluid h-100 border p-3">
+                <full-calendar deepChangeDetection="true" [options]="calendarOptions"></full-calendar>
+            </div>
+        </div>
+
+    </div>    
+
+</div>
+

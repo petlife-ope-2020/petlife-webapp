@@ -1,0 +1,35 @@
+<cdk-virtual-scroll-viewport itemSize="" style="height: 100%;">
+    <div class="row border-bottom" *cdkVirtualFor="let order of orders">
+        <div class="col">
+            <div class="card mt-1 ">
+                <div class="card-header">
+                    {{order.ClientName}}
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless table-responsive-sm">
+                        <thead>
+                            <tr>
+                            <th scope="col">Espécie</th>
+                            <th scope="col">Raça</th>
+                            <th scope="col">Serviço</th>
+                            <th scope="col">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{order.PetSpecie}}</td>
+                                <td>{{order.PetBreed}}</td>
+                                <td>{{order.Service}}</td>
+                                <td>{{order.Date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row justify-content-around">
+                        <button type="button" (click)="acceptOrder(order.Id)" style="width: 40%; background-color: #063362; color: #ffffff" class="btn btn ">Aceitar</button>
+                        <button type="button" (click)="refuseOrder(order.Id)" style="width: 40%; background-color: #BA1A4C; color: #ffffff" class="btn btn">Rejeitar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</cdk-virtual-scroll-viewport>

@@ -1,0 +1,24 @@
+<div class="container-sm mt-5 form pt-5">
+    <div class="row ml-5 justify-content-center">
+        <div class="row pb-2 w-100">
+            <div class="col">
+                <label class="form-label">ADICIONAR SERVIÇO</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <input #servicename style="width:100%" type="text" placeholder="Nome do Serviço" class="rounded mr-3 form-input">
+        </div>
+        <div class="col-4">
+            <input #serviceprice style="width:100%" type="text" placeholder="Preço do Serviço" class="rounded mr-3 form-input">
+        </div>
+        <div class="col-4">
+            <button type="button" (click)="addService(servicename.value, serviceprice.value)" style="background-color: #063362; color: #ffffff;" class="btn rounded button">Adicionar</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container-fluid">
+            <app-services-requests></app-services-requests>
+        </div>
+    </div>
+</div>
