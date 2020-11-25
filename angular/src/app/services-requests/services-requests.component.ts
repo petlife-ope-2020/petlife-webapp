@@ -67,7 +67,8 @@ export class ServicesRequestsComponent implements OnInit {
   }
 
   addService(service_id, service_name, price) {
-      this.updateUser(service_id, service_name, price);
+      const editedPrice = `R$ ${price}`;
+      this.updateUser(service_id, service_name, editedPrice);
       this.updateService(service_id);
   }
 
