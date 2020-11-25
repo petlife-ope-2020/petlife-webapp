@@ -1,15 +1,23 @@
-<div class="container-md mt-3">
-    <div class="col">
-        <div class="row mb-3 p-3 border-bottom">
-            <button type="button" (click)="backPage()" class="btn btn-primary">Voltar</button>
+<div class="container-sm mt-5 form pt-5">
+    <div class="row ml-5 justify-content-center">
+        <div class="row pb-2 w-100">
+            <div class="col">
+                <label class="form-label">ADICIONAR SERVIÇO</label>
+            </div>
         </div>
-        <div class="row mb-3 p-3 border-bottom">
-            <input #servicename style="width:25%" type="text" placeholder="Nome do Serviço" class="myInput border border-primary rounded mr-3">
-            <input #serviceprice style="width:25%" type="text" placeholder="Preço do Serviço" class="myInput border border-primary rounded mr-3">
-            <button type="button" (click)="addService(servicename.value, serviceprice.value)" class="btn btn-success">Adicionar</button>
+        <div class="col-4">
+            <input #servicename style="width:100%" type="text" placeholder="Nome do Serviço" class="rounded mr-3 form-input">
+        </div>
+        <div class="col-4">
+            <input #serviceprice style="width:100%" type="text" placeholder="Preço do Serviço" class="rounded mr-3 form-input">
+        </div>
+        <div class="col-4">
+            <button type="button" (click)="addService(servicename.value, serviceprice.value)" style="background-color: #063362; color: #ffffff;" class="btn rounded button">Adicionar</button>
+        </div>
+    </div>
 
-        </div>
-        <div class="container-flex">
+    <div class="row">
+        <div class="container-fluid">
             <app-services-requests></app-services-requests>
         </div>
     </div>

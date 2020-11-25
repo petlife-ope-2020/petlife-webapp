@@ -25,9 +25,10 @@ export class ServicesComponent implements OnInit {
   }
 
   addService(service_name, price) {
+    const editedPrice = `R$ ${price}`;
     this.service.addServices(service_name).subscribe((response: any) => {
       this.updateService(response.id);
-      this.updateUser(response.id, service_name, price);
+      this.updateUser(response.id, service_name, editedPrice);
     });
   }
 
