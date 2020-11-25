@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { interval } from 'rxjs';
 import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
 
 @Component({
@@ -18,6 +19,9 @@ export class OrdersRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
+    interval(120000).subscribe( () => {
+      this.getOrders();
+    });
   }
 
   createEvent() {
