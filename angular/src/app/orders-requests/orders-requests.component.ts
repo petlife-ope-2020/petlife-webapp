@@ -19,12 +19,13 @@ export class OrdersRequestsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
-    interval(120000).subscribe( () => {
+    interval(30000).subscribe( () => {
       this.getOrders();
     });
   }
 
   createEvent() {
+    this.orders = [];
     this.requestsArray.forEach(element => {
       if ((!element.status.confirmed && !element.status.rejected)) {
         const year = element.schedule.datetime.slice(0, 4);
