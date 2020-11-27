@@ -27,7 +27,7 @@ router.get('/api/get_orders', (req, res) => {
 //Rota PUT para orders
 router.put('/api/accept_orders', (req, res) => {
   
-  axios.put(`${ordersApiUrl}}/shop?order_id=${req.body.id}`)
+  axios.put(`${ordersApiUrl}/shop?order_id=${req.body.id}`)
   .then(response => {
     res.send({ message: 'Completed'})
   })

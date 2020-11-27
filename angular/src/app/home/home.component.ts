@@ -68,20 +68,22 @@ export class HomeComponent implements OnInit {
     this.eventsArray.forEach(element => {
       if (element['id'] === this.selectedEventId) {
         const elementIndex = this.eventsArray.indexOf(element);
-        this.eventsArray.splice(elementIndex, 1);;
+        this.eventsArray.splice(elementIndex, 1);
+        this.scheduledOrders.refuseOrder(this.selectedEventId)
+        .subscribe(response => response);
       }
     });
   }
 
   createEvent() {
     this.requestsArray.forEach(element => {
-      if (element.status.confirmed) {
+      if (element.status.confirmed && !element.status.rejected) {
         let date = element.schedule.datetime.slice(0, 10);
         let time = element.schedule.datetime.slice(11).replace('-', ':');
         let datetime = date.concat('T', time, ':00');
         this.eventsArray.push(
           {
-            id: this.requestsArray.indexOf(element).toString(),
+            id: element._id,
             title: element.client.name,
             start: datetime
           }
