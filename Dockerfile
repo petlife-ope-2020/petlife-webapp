@@ -1,10 +1,10 @@
-FROM node:12.19-alpine
+FROM node:15.10-alpine
 
 RUN npm install -g @angular/cli
 
-WORKDIR /usr/src/app/angular
-COPY angular/package.json ./
-COPY angular/package-lock.json ./
+WORKDIR /usr/src/app/client
+COPY client/package.json ./
+COPY client/package-lock.json ./
 RUN npm install
 
 WORKDIR /usr/src/app/server
@@ -14,10 +14,10 @@ RUN npm install --production
 
 WORKDIR /usr/src/app
 COPY server ./server
-COPY angular ./angular
-RUN cd angular && npm run build && \
-    cd .. && rm -rf angular
+COPY client ./client
+RUN cd client && npm run build && \
+    cd .. && rm -rf client && cd server
 
 EXPOSE 8080
 USER node
-CMD ["node", "server/server.js", "--production"]
+CMD ["npm start"]
