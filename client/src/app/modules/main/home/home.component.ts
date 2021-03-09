@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/angular';
-import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
+import { ScheduledOrdersService } from '../../shared/services/scheduled-orders/scheduled-orders.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 
@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     events: this.eventsArray,
     locale: 'pt-br',
     titleFormat: { day: 'numeric',  month: 'short', year: 'numeric'},
-    allDaySlot: false,
     slotDuration: '01:00:00',
     nowIndicator: true,
     expandRows: true,
@@ -37,7 +36,6 @@ export class HomeComponent implements OnInit {
       day:      'Dia',
       list:     'Lista'
     },
-    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
     headerToolbar: {
       left: 'timeGridDay,timeGridWeek,dayGridMonth',
       center: 'title',

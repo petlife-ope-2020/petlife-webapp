@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service'
+import { ScheduledOrdersService } from '../../shared/services/scheduled-orders/scheduled-orders.service'
 
 import { HomeComponent } from './home.component';
 

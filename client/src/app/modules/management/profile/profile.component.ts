@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../shared/auth/auth.service';
 
 @Component({
   selector: 'app-profile',

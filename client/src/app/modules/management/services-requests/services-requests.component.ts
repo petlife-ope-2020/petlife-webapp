@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from '../auth/auth.service';
-import { ServicesRequestsServicesService } from '../services-requests-service/services-requests-services.service';
+import { AuthService } from '../../shared/auth/auth.service';
+import { ServicesRequestsServicesService } from '../../shared/services/services-requests-service/services-requests-services.service';
 
 @Component({
   selector: 'app-services-requests',

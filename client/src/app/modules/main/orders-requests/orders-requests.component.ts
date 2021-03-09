@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { interval } from 'rxjs';
-import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
+import { ScheduledOrdersService } from '../../shared/services/scheduled-orders/scheduled-orders.service';
 
 @Component({
   selector: 'app-orders-requests',

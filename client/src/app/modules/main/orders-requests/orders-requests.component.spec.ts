@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OrdersRequestsComponent } from './orders-requests.component';
-import { ScheduledOrdersService } from '../scheduled-orders/scheduled-orders.service';
+import { ScheduledOrdersService } from '../../shared/services/scheduled-orders/scheduled-orders.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 describe('OrdersRequestsComponent', () => {
